@@ -22,7 +22,6 @@ def main():
             for key in horse.stats.keys():
                 data_string = data_string + str(key) + "," + ",".join(horse.stats[key])
             data_string = data_string + "," + horse.mother + "," + horse.father
-            print(data_string)
             ctr = ctr + 1
             data_file.write(data_string + "\n")
         except KeyboardInterrupt:
