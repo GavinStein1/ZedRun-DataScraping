@@ -11,22 +11,31 @@ def stringify_dict(dict) -> str:
 
 def main():
 
-    data_file = open("raw_Data.csv", 'a')
-    ctr = 22
+    data_file = open("raw_speed_data.csv", 'a')
+    ctr = int(input("enter starting ctr: "))
+    err_cnt = 0
     while ctr < TOTAL_HORSES:
         try:
+            if err_cnt == 3:
+                data_file.close()
+                break
             print(ctr)
+            data_string = ""
+            horse = None
             horse = scrape_speed.scrape_data(ctr)
             horse.id = ctr
             data_string = str(horse.id) + "," + horse.name + ","
             for key in horse.stats.keys():
                 data_string = data_string + str(key) + "," + ",".join(horse.stats[key])
             data_string = data_string + "," + horse.mother + "," + horse.father
-            ctr = ctr + 1
             data_file.write(data_string + "\n")
+            err_cnt = 0
+            ctr = ctr + 1
         except KeyboardInterrupt:
             data_file.close()
             break
+        except AttributeError:
+            err_cnt = err_cnt + 1
 
 
 

@@ -234,6 +234,7 @@ class Horse:
     father_name = ""
 
 class HorseSpeedStats:
+    id = 0
     stats = {
         1000: [],
         1200: [],

@@ -20,6 +20,10 @@ def create_soup(url: str) -> BeautifulSoup:
 def scrape_data(ctr: int) -> HorseSpeedStats:
     horse = HorseSpeedStats()
     speed_stats = create_soup(BASE_URL+str(ctr)+"/speed_statistics")
+    j = 1000
+    while j < 2800:
+        horse.stats[j] = []
+        j = j + 200
     
     table = speed_stats.find('table')
     temp = table.find_all('td')
@@ -32,23 +36,24 @@ def scrape_data(ctr: int) -> HorseSpeedStats:
         horse.stats[ref].append(temp[i].text)
         i = i + 1
 
-    ancestry = create_soup(BASE_URL + str(ctr) + "/ancestry")
+    # ancestry = create_soup(BASE_URL + str(ctr) + "/ancestry")
 
-    badges = ancestry.find('div', class_="card-body d-flex flex-column justify-content-center").find_all('span', class_="badge badge-soft-success fs--2")
-    names = ancestry.find_all('a', class_="font-sans-serif lh-1 fs-2 mb-1 me-2")
-    try:
-        class_num = badges[0].text.strip().split(" (")[0]
-        name = names[0].text.strip()
-        breed_type = badges[1].text.strip().split(" ")[2]
-        mother = ""
-        father = ""
-        if breed_type != "Genesis":
-            father = names[1].text.strip()
-            mother = names[2].text.strip()
-        horse.class_rank = class_num
-        horse.name = name
-        horse.mother = mother
-        horse.father = father
-        return horse
-    except Exception:
-        return None
+    # badges = ancestry.find('div', class_="card-body d-flex flex-column justify-content-center").find_all('span', class_="badge badge-soft-success fs--2")
+    # names = ancestry.find_all('a', class_="font-sans-serif lh-1 fs-2 mb-1 me-2")
+    # try:
+    #     class_num = badges[0].text.strip().split(" (")[0]
+    #     name = names[0].text.strip()
+    #     breed_type = badges[1].text.strip().split(" ")[2]
+    #     mother = ""
+    #     father = ""
+    #     if breed_type != "Genesis":
+    #         father = names[1].text.strip()
+    #         mother = names[2].text.strip()
+    #     horse.class_rank = class_num
+    #     horse.name = name
+    #     horse.mother = mother
+    #     horse.father = father
+    #     return horse
+    # except Exception:
+    #     return None
+    return horse
