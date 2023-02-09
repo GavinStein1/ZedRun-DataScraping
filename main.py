@@ -13,8 +13,9 @@ def main():
 
     data_file = open("raw_speed_data.csv", 'a')
     ctr = int(input("enter starting ctr: "))
+    stop = int(input("enter stop ctr: "))
     err_cnt = 0
-    while ctr < TOTAL_HORSES:
+    while ctr < stop:
         try:
             if err_cnt == 3:
                 data_file.close()
