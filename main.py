@@ -17,9 +17,6 @@ def main():
     err_cnt = 0
     while ctr < stop:
         try:
-            if err_cnt == 3:
-                data_file.close()
-                break
             print(ctr)
             data_string = ""
             horse = None
@@ -37,6 +34,9 @@ def main():
             break
         except AttributeError:
             err_cnt = err_cnt + 1
+            if err_cnt == 3:
+                ctr = ctr + 1
+                err_cnt = 0
 
 
 
